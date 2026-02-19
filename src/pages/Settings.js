@@ -35,8 +35,22 @@ export const Settings = () => {
   };
 
   const handleThemeChange = async (t) => {
-    try { await settingsAPI.updateTheme(t); setTheme(t); toast.success(`Theme: ${t}`); }
-    catch { toast.error('Failed to change theme'); }
+    try {
+      await settingsAPI.updateTheme(t);
+      setTheme(t);
+      // Apply theme to document immediately
+      document.documentElement.setAttribute('data-theme', t);
+      if (t === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (t === 'light') {
+        document.documentElement.classList.remove('dark');
+      } else {
+        // 'auto' — follow system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.documentElement.classList.toggle('dark', prefersDark);
+      }
+      toast.success(`Theme changed to ${t}`);
+    } catch { toast.error('Failed to change theme'); }
   };
 
   return (
