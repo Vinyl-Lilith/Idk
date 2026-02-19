@@ -237,7 +237,7 @@ export const Homepage = () => {
 
           <div className="relative flex-1 bg-void-900 min-h-48">
             <img
-              src={`${process.env.REACT_APP_API_URL}/webcam/stream`}
+              src={`${process.env.REACT_APP_WEBCAM_URL || "http://raspberrypi.local:8080"}/video_feed`}
               alt="Greenhouse Live Feed"
               className="w-full h-full object-cover"
               onError={(e) => {
@@ -281,7 +281,7 @@ export const Homepage = () => {
                 [close]
               </button>
             </div>
-            <img src={`${process.env.REACT_APP_API_URL}/webcam/stream`} alt="Expanded Live Feed"
+            <img src={`${process.env.REACT_APP_WEBCAM_URL || "http://raspberrypi.local:8080"}/video_feed`} alt="Expanded Live Feed"
               className="w-full rounded-xl border border-cyber-400/10"
               onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=1200&q=80'; }} />
           </div>
